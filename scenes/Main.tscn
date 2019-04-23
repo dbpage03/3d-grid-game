@@ -1,25 +1,28 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://graphics/block/Test-Testure.png" type="Texture" id=1]
-
-[sub_resource type="SpatialMaterial" id=1]
-flags_unshaded = true
-albedo_texture = ExtResource( 1 )
-
-[sub_resource type="CubeMesh" id=2]
-material = SubResource( 1 )
-size = Vector3( 1, 1, 1 )
-
-[sub_resource type="Environment" id=3]
-ambient_light_color = Color( 1, 0.945098, 0.776471, 1 )
+[ext_resource path="res://scripts/Main.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/Player.gd" type="Script" id=3]
+[ext_resource path="res://scenes/Map.tscn" type="PackedScene" id=4]
 
 [node name="Spatial" type="Spatial"]
+script = ExtResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-mesh = SubResource( 2 )
-material/0 = null
+[node name="Viewport" type="Viewport" parent="."]
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.975251, -0.0643367, 0.211535, -0.0286377, 0.911914, 0.409382, -0.21924, -0.405308, 0.887502, 0.459887, 0.675685, 1.76568 )
-environment = SubResource( 3 )
+[node name="Player" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.38684, 0 )
+script = ExtResource( 3 )
+
+[node name="GridMap" parent="." instance=ExtResource( 4 )]
+data = {
+"cells": PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 536870912, 65539, 0, 0, 65540, 0, 0, 131068, 0, 0, 0, 1, 0, 1, 1, 0, 2, 1, 0, 65533, 1, 0, 65534, 1, 0, 65535, 1, 0, 65539, 1, 0, 65540, 1, 0, 131068, 1, 0, 131069, 1, 0, 0, 2, 536870912, 1, 2, 0, 2, 2, 536870912, 65534, 2, 536870912, 65535, 2, 536870912, 65539, 2, 0, 131069, 2, 0, 131070, 2, 536870912, 65539, 3, 0, 131070, 3, 0, 131071, 3, 0, 131070, 65531, 0, 131071, 65531, 0, 65536, 65532, 0, 131068, 65532, 0, 131069, 65532, 0, 131070, 65532, 0, 131071, 65532, 0, 0, 65533, 0, 65536, 65533, 536870912, 65537, 65533, 0, 65538, 65533, 0, 131068, 65533, 0, 131069, 65533, 0, 131070, 65533, 0, 131071, 65533, 0, 0, 65534, 536870912, 1, 65534, 536870912, 2, 65534, 536870912, 65533, 65534, 536870912, 65534, 65534, 0, 65536, 65534, 0, 65538, 65534, 536870912, 65539, 65534, 0, 65540, 65534, 0, 131068, 65534, 0, 131071, 65534, 536870912, 0, 65535, 0, 1, 65535, 0, 2, 65535, 0, 65533, 65535, 0, 65534, 65535, 0, 65535, 65535, 0, 65539, 65535, 536870912, 65540, 65535, 536870912, 131068, 65535, 0 )
+}
+
+[node name="FP" type="Camera" parent="."]
+transform = Transform( 0.975251, -0.0643368, 0.211535, -0.0286377, 0.911914, 0.409382, -0.21924, -0.405308, 0.887502, 1.12, 8.12915, 5.56723 )
+
+[node name="TP" type="Camera" parent="."]
+transform = Transform( 1, -7.45058e-009, 4.59177e-041, 7.45058e-009, 1, 0, 0, 0, 1, 0, 0, 0 )
+current = true
 
