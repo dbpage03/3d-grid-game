@@ -2,12 +2,12 @@ extends KinematicBody
 
 onready var camFP = self.get_parent().get_node("FP")
 onready var camTP = self.get_parent().get_node("TP")
-const SPEED = 2 
+const SPEED = 4
 const ROTSPEED = 4
-var lastMousePos = Vector2(0,0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	get_viewport().warp_mouse(Vector2(200,200))
 	set_process(true)
 
 func degRad(degrees):
@@ -30,12 +30,13 @@ func backward():
 	self.move_and_slide(Vector3(x,0,z))
 
 func mouse():
-	var x = get_viewport().get_mouse_position().x - lastMousePos.x
-	var y = get_viewport().get_mouse_position().y - lastMousePos.y
+	var x = -(get_viewport().get_mouse_position().x - 200) / 10 * ROTSPEED
+	var y = (get_viewport().get_mouse_position().y - 200) / 10 * ROTSPEED
 	camFP.rotate_y(degRad(x))
-	camFP.rotate_z(degRad(y))
-	lastMousePos = get_viewport().get_mouse_position()
-	pass
+	var t = camFP.get_transform()
+	t.basis = Basis(t.basis[0], deg2rad(-y))*t.basis
+	camFP.set_transform(t)
+	get_viewport().warp_mouse(Vector2(200,200))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -52,6 +53,4 @@ func _process(delta):
 		forward()
 	if Input.is_action_pressed("game_down"):
 		backward()
-	if Input.is_action_just_pressed("ui_left"):
-		camFP.rotate_y(degRad(90))
 	mouse()
