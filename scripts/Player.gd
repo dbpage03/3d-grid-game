@@ -55,9 +55,17 @@ func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_FOCUS_IN:
 		play = true
 
+func _physics_process(delta):
+	if play:
+		
+		pass
+	pass
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if play:
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+		
 		self.rotation.y = camFP.rotation.y
 		camFP.translation.x = self.translation.x
 		camFP.translation.z = self.translation.z
@@ -72,4 +80,6 @@ func _process(delta):
 		if Input.is_action_pressed("game_down"):
 			backward()
 		mouse()
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		
