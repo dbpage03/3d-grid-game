@@ -4,6 +4,7 @@ onready var camFP = self.get_parent().get_node("FP")
 onready var camTP = self.get_parent().get_node("TP")
 const SPEED = 4
 const ROTSPEED = 4
+var velocity = Vector3()
 var play = true
 
 # Called when the node enters the scene tree for the first time.
@@ -21,6 +22,7 @@ func forward():
 	z = -sin(a) * SPEED
 	x = cos(a) * SPEED
 	self.move_and_slide(Vector3(x,0,z))
+	
 
 func backward():
 	var a = degRad(self.rotation_degrees.y + 90)
@@ -44,7 +46,7 @@ func mouse():
 	var y = (get_viewport().get_mouse_position().y - 200) / 10 * ROTSPEED
 	camFP.rotate_y(degRad(x))
 	var t = camFP.get_transform()
-	t.basis = Basis(t.basis[0].normalized(), deg2rad(-y))*t.basis
+	t.basis = Basis(t.basis.x.normalized(), deg2rad(-y))*t.basis
 	camFP.set_transform(t)
 	if play:
 		get_viewport().warp_mouse(Vector2(200,200))
@@ -57,7 +59,6 @@ func _notification(what):
 
 func _physics_process(delta):
 	if play:
-		
 		pass
 	pass
 
