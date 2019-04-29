@@ -8,6 +8,7 @@ var vel = Vector3()
 onready var camFP = self.get_parent().get_node("FP")
 var MOUSE_SENSITIVITY = 0.2
 var dir = Vector3() 
+var play = false
 
 func _ready():
 	pass
@@ -70,7 +71,7 @@ func _input(event):
 		camFP.rotate_y(deg2rad(-event.relative.x * MOUSE_SENSITIVITY))
 		
 		var camera_rot = camFP.rotation_degrees
-		camera_rot.x = clamp(camera_rot.x, -70, 70)
+		#camera_rot.x = clamp(camera_rot.x, -70, 70)
 		camFP.rotation_degrees = camera_rot
 		
 		self.rotation_degrees.y = camFP.rotation_degrees.y
