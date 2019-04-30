@@ -17,6 +17,7 @@ _global_script_class_icons={
 
 config/name="3D-Game"
 run/main_scene="res://scenes/Main.tscn"
+boot_splash/image="res://graphics/UI/Menu-Background.png"
 config/icon="res://icon.png"
 
 [input]

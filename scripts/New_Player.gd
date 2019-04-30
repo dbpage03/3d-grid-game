@@ -77,3 +77,6 @@ func _input(event):
 		self.rotation_degrees.y = camFP.rotation_degrees.y
 	
 	
+
+func _on_UI_play():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
