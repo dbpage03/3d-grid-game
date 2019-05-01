@@ -1,6 +1,6 @@
-extends "res://scripts/Main.gd"
+extends GridMap
 
-onready var map
+
 
 func _ready():
 	pass

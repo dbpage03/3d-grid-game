@@ -3,7 +3,6 @@ extends Spatial
 onready var camFP = self.get_node("FP")
 onready var camTP = self.get_node("TP")
 
-
 func _ready():
 	set_process(true)
 	
@@ -22,3 +21,6 @@ func _process(delta):
 
 func _on_UI_play():
 	pass # Replace with function body.
+
+func stuff():
+	pass
