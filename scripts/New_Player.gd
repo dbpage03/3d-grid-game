@@ -16,6 +16,7 @@ var sprint = false
 var sneak = false
 
 func _ready():
+	set_physics_process(false)
 	pass
 
 func _physics_process(delta):
@@ -45,6 +46,9 @@ func process_input(delta):
 		sneak = true
 	else:
 		sneak = false
+	
+	if Input.is_action_just_pressed("ui_home"):
+		get_parent().get_node("GridMap").bedrockLayer()
 	
 	dir.x = input_movement_vector.x
 	dir.z = input_movement_vector.y
@@ -100,3 +104,4 @@ func _input(event):
 
 func _on_UI_play():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	set_physics_process(true)
