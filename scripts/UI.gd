@@ -4,6 +4,7 @@ signal play
 signal quit
 
 func _ready():
+	get_node("Main Menu").show()
 	pass
 
 func _on_BtnPlay_pressed():

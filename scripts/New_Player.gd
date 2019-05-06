@@ -10,10 +10,10 @@ var vel = Vector3()
 onready var camFP = self.get_parent().get_node("FP")
 var MOUSE_SENSITIVITY = 0.2
 var dir = Vector3() 
-#warning-ignore:unused_class_variable
 var play = false
 var sprint = false
 var sneak = false
+var health = 100
 
 func _ready():
 	set_physics_process(false)
@@ -24,7 +24,6 @@ func _physics_process(delta):
 	process_movement(delta)
 	pass
 
-#warning-ignore:unused_argument
 func process_input(delta):
 	var input_movement_vector = Vector2()
 	dir = Vector3()
@@ -56,6 +55,7 @@ func process_input(delta):
 	if is_on_floor():
 		if Input.is_action_just_pressed("game_jump"):
 			vel.y = JUMP_SPEED
+			health -= 1
 	
 	# Capturing/Freeing the cursor
 	if Input.is_action_just_pressed("ui_cancel"):
