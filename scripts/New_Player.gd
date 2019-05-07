@@ -65,6 +65,8 @@ func process_input(delta):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func process_movement(delta):
+	health = self.translation.x
+	
 	vel.y += GRAVITY * delta
 	
 	var speed_multiplier = 1
