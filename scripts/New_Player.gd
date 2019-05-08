@@ -14,6 +14,8 @@ var play = false
 var sprint = false
 var sneak = false
 var health = 100
+var fall = 0
+var falldamage = 0
 
 func _ready():
 	set_physics_process(false)
@@ -56,7 +58,6 @@ func process_input(delta):
 	if is_on_floor():
 		if Input.is_action_just_pressed("game_jump"):
 			vel.y = JUMP_SPEED
-			health -= 1
 	
 	# Capturing/Freeing the cursor
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -89,14 +90,17 @@ func process_movement(delta):
 	
 func process_damage():
 	#Fall Damage
-	var fall = 0
-	if vel.y < -22.5:
-		fall = vel.y / 20
 	
-	if is_on_floor() and fall < 1:
+	if vel.y < -22.5:
+		fall = vel.y / 10
+
+	
+	if is_on_floor() and fall < -1:
 		print('damaged')
-		health -= fall
+		health -= round(-fall)
+		print(health)
 		fall = 0
+	
 	pass
 
 
