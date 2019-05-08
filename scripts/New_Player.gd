@@ -22,6 +22,7 @@ func _ready():
 func _physics_process(delta):
 	process_input(delta)
 	process_movement(delta)
+	process_damage()
 	pass
 
 func process_input(delta):
@@ -65,8 +66,6 @@ func process_input(delta):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func process_movement(delta):
-	health = self.translation.x
-	
 	vel.y += GRAVITY * delta
 	
 	var speed_multiplier = 1
@@ -88,6 +87,18 @@ func process_movement(delta):
 	camFP.translation.z = self.translation.z
 	camFP.translation.y = self.translation.y
 	
+func process_damage():
+	#Fall Damage
+	var fall = 0
+	if vel.y < -22.5:
+		fall = vel.y / 20
+	
+	if is_on_floor() and fall < 1:
+		print('damaged')
+		health -= fall
+		fall = 0
+	pass
+
 
 func _input(event):
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
