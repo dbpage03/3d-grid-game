@@ -15,7 +15,7 @@ var sprint = false
 var sneak = false
 var health = 100
 var fall = 0
-var falldamage = 0
+signal death
 
 func _ready():
 	set_physics_process(false)
@@ -90,17 +90,23 @@ func process_movement(delta):
 	
 func process_damage():
 	#Fall Damage
-	
 	if vel.y < -22.5:
-		fall = vel.y / 10
-
-	
+		fall = vel.y / 2
 	if is_on_floor() and fall < -1:
-		print('damaged')
 		health -= round(-fall)
-		print(health)
 		fall = 0
 	
+	#-Y Damage
+	if self.translation.y < 0:
+		health -= 1
+	
+	#Death
+	if health <= 0:
+		emit_signal("death")
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		set_physics_process(false)
+		play = false
+		pass
 	pass
 
 
@@ -122,3 +128,6 @@ func _input(event):
 func _on_UI_play():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	set_physics_process(true)
+	play = true
+	health = 100
+	

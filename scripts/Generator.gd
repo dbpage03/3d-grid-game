@@ -14,7 +14,7 @@ func bedrockLayer(var layer = 0):
 	var p = self.get_parent().get_node("Player").get_global_transform().origin
 	currentYLevel += 1
 	for x in range(p.x/2-mapX,p.z/2+mapZ):
-		for z in range(p.x-mapX,p.z+mapZ):
+		for z in range(p.x/2-mapX,p.z/2+mapZ):
 			self.set_cell_item(x,layer,z,4)
 	stoneLayer()
 	pass
