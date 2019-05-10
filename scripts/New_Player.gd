@@ -15,6 +15,7 @@ var sprint = false
 var sneak = false
 var health = 100
 var fall = 0
+var spawnpoint = Vector3(0,80*2,0)
 signal death
 
 func _ready():
@@ -49,8 +50,6 @@ func process_input(delta):
 	else:
 		sneak = false
 	
-	if Input.is_action_just_pressed("ui_home"):
-		get_parent().get_node("GridMap").bedrockLayer()
 	
 	dir.x = input_movement_vector.x
 	dir.z = input_movement_vector.y
@@ -89,25 +88,26 @@ func process_movement(delta):
 	camFP.translation.y = self.translation.y
 	
 func process_damage():
-	#Fall Damage
-	if vel.y < -22.5:
-		fall = vel.y / 2
-	if is_on_floor() and fall < -1:
-		health -= round(-fall)
-		fall = 0
-	
-	#-Y Damage
-	if self.translation.y < 0:
-		health -= 1
-	
-	#Death
-	if health <= 0:
-		emit_signal("death")
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		set_physics_process(false)
-		play = false
+	if play == true:
+		#Fall Damage
+		if vel.y < -22.5:
+			fall = vel.y / 2
+		if is_on_floor() and fall < -1:
+			health -= round(-fall)
+			fall = 0
+		
+		#-Y Damage
+		if self.translation.y < 0:
+			health -= 1
+		
+		#Death
+		if health <= 0:
+			emit_signal("death")
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			set_physics_process(false)
+			play = false
+			pass
 		pass
-	pass
 
 
 func _input(event):
@@ -126,8 +126,29 @@ func _input(event):
 	
 
 func _on_UI_play():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	set_physics_process(true)
-	play = true
-	health = 100
+	pass
 	
+
+
+func _on_BtnRespawn_pressed():
+	play = false
+	self.set_translation(spawnpoint)
+	vel = Vector3()
+	health = 100
+	get_parent().get_node("Timer").start(0)
+	if get_parent().get_node("Timer").time_left == 2:
+		play = true
+		get_parent().get_node("Timer").stop()
+
+
+func _on_GridMap_worldready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	spawnpoint = get_parent().get_node("GridMap").worldspawn
+	self.set_translation(spawnpoint)
+	vel = Vector3()
+	health = 100
+	set_physics_process(true)
+	get_parent().get_node("Timer").start(0)
+	if get_parent().get_node("Timer").time_left == 1:
+		play = true
+		get_parent().get_node("Timer").stop()

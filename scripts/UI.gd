@@ -31,3 +31,4 @@ func _on_BtnRespawn_pressed():
 
 func _on_BtnMenu_pressed():
 	get_node("Main Menu").show()
+	get_node("Respawn").hide()
