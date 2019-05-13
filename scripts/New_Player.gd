@@ -55,7 +55,7 @@ func process_input(delta):
 	dir.z = input_movement_vector.y
 	
 	if is_on_floor():
-		if Input.is_action_just_pressed("game_jump"):
+		if Input.is_action_pressed("game_jump"):
 			vel.y = JUMP_SPEED
 	
 	# Capturing/Freeing the cursor
@@ -117,6 +117,7 @@ func _input(event):
 		camFP.set_transform(t)
 		camFP.rotate_y(deg2rad(-event.relative.x * MOUSE_SENSITIVITY))
 		
+		
 		var camera_rot = camFP.rotation_degrees
 		#camera_rot.x = clamp(camera_rot.x, -70, 70)
 		camFP.rotation_degrees = camera_rot
@@ -124,6 +125,8 @@ func _input(event):
 		self.rotation_degrees.y = camFP.rotation_degrees.y
 	
 	
+func _process(delta):
+	pass
 
 func _on_UI_play():
 	pass
@@ -131,14 +134,11 @@ func _on_UI_play():
 
 
 func _on_BtnRespawn_pressed():
-	play = false
 	self.set_translation(spawnpoint)
-	vel = Vector3()
+	vel = Vector3(0,0,0)
 	health = 100
-	get_parent().get_node("Timer").start(0)
-	if get_parent().get_node("Timer").time_left == 2:
-		play = true
-		get_parent().get_node("Timer").stop()
+	fall = 0
+	play = true
 
 
 func _on_GridMap_worldready():
@@ -147,8 +147,6 @@ func _on_GridMap_worldready():
 	self.set_translation(spawnpoint)
 	vel = Vector3()
 	health = 100
+	fall = 0
 	set_physics_process(true)
-	get_parent().get_node("Timer").start(0)
-	if get_parent().get_node("Timer").time_left == 1:
-		play = true
-		get_parent().get_node("Timer").stop()
+	play = true

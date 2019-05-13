@@ -51,7 +51,7 @@ func grassLayer():
 	
 
 func _on_UI_play():
-	self.clear()
+	#self.clear()
 	bedrockLayer()
 	worldspawn.y = currentYLevel*2 + 4
 	emit_signal("worldready")
