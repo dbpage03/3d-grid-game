@@ -20,6 +20,7 @@ signal death
 
 func _ready():
 	set_physics_process(false)
+	set_process_input(false)
 	pass
 
 func _physics_process(delta):
@@ -149,4 +150,6 @@ func _on_GridMap_worldready():
 	health = 100
 	fall = 0
 	set_physics_process(true)
+	set_process_input(true)
 	play = true
+	print("worldready")
