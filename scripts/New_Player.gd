@@ -21,6 +21,7 @@ signal death
 func _ready():
 	set_physics_process(false)
 	set_process_input(false)
+	hide()
 	pass
 
 func _physics_process(delta):
@@ -135,11 +136,15 @@ func _on_UI_play():
 
 
 func _on_BtnRespawn_pressed():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	self.set_translation(spawnpoint)
-	vel = Vector3(0,0,0)
+	vel = Vector3()
 	health = 100
 	fall = 0
+	set_physics_process(true)
+	set_process_input(true)
 	play = true
+	get_parent().get_node("UI/Player").show()
 
 
 func _on_GridMap_worldready():
@@ -152,4 +157,3 @@ func _on_GridMap_worldready():
 	set_physics_process(true)
 	set_process_input(true)
 	play = true
-	print("worldready")

@@ -25,7 +25,6 @@ func _on_Player_death():
 
 
 func _on_BtnRespawn_pressed():
-	emit_signal("play")
 	get_node("Respawn").hide()
 
 

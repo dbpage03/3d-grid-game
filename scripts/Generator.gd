@@ -1,25 +1,25 @@
 extends GridMap
 
 var currentYLevel = 0
-var mapX = 20
-var mapZ = 20
+var mapX = 10
+var mapZ = 10
 var worldspawn = Vector3()
 signal worldready
 
 func _ready():
 	pass
 
-func bedrockLayer(var layer = 0):
+func bedrockLayer(layer = 0, SLayers = 65, DLayers = 3):
 	currentYLevel = layer
 	currentYLevel += 1
 	for x in range(0-mapX,0+mapZ):
 		for z in range(0-mapX,0+mapZ):
 			self.set_cell_item(x,layer,z,4)
 		yield(get_tree().create_timer(0),"timeout")
-	stoneLayer()
+	stoneLayer(SLayers, DLayers)
 	pass
 
-func stoneLayer(var layers = 65):
+func stoneLayer(layers = 65, DLayers = 3):
 	for y in range(0,layers):
 		y = currentYLevel
 		currentYLevel += 1
@@ -27,7 +27,7 @@ func stoneLayer(var layers = 65):
 			for z in range(0-mapX,0+mapZ):
 				self.set_cell_item(x,y,z,3)
 			yield(get_tree().create_timer(0),"timeout")
-	dirtLayer()
+	dirtLayer(DLayers)
 	pass
 
 func dirtLayer(var layers = 3):
@@ -57,4 +57,4 @@ func grassLayer():
 
 func _on_UI_play():
 	#self.clear()
-	bedrockLayer()
+	bedrockLayer(0,3,3)

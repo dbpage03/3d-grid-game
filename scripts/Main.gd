@@ -5,6 +5,7 @@ onready var camTP = self.get_node("TP")
 
 func _ready():
 	set_process(true)
+	camFP.set_translation(camTP.get_translation())
 	
 
 
