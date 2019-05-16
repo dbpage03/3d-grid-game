@@ -15,10 +15,14 @@ _global_script_class_icons={
 
 [application]
 
-config/name="3D-Game"
+config/name="Not Minecraft"
 run/main_scene="res://scenes/Main.tscn"
 boot_splash/image="res://graphics/UI/Menu-Background.png"
 config/icon="res://icon.png"
+
+[debug]
+
+gdscript/completion/autocomplete_setters_and_getters=true
 
 [input]
 

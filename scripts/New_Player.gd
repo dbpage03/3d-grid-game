@@ -8,6 +8,7 @@ const SNEAK_MULT = 0.4
 const MAX_SLOPE_ANGLE = 40
 var vel = Vector3()
 onready var camFP = self.get_parent().get_node("FP")
+onready var camTP = self.get_parent().get_node("TP")
 var MOUSE_SENSITIVITY = 0.2
 var dir = Vector3() 
 var play = false
@@ -149,6 +150,8 @@ func _on_BtnRespawn_pressed():
 
 func _on_GridMap_worldready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	camFP.current = true
+	camTP.current = false
 	spawnpoint = get_parent().get_node("GridMap").worldspawn
 	self.set_translation(spawnpoint)
 	vel = Vector3()
